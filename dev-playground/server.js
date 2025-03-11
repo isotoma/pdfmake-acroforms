@@ -25,7 +25,7 @@ function createPdfBinary(docDefinition) {
 			bold: 'Helvetica-Bold',
 			italics: 'Helvetica-Oblique',
 			bolditalics: 'Helvetica-BoldOblique'
-		  },
+		},
 	};
 
 	pdfmake.setFonts(fonts);
@@ -41,7 +41,7 @@ app.post('/pdf', function (req, res) {
 		res.contentType('application/pdf');
 		res.send(binary);
 	}, function (error) {
-		console.log(error); //print in console
+		console.error('ERROR:' + error);
 		res.send('ERROR:' + error);
 	});
 

@@ -7,7 +7,7 @@ import TableProcessor from './TableProcessor';
 import Line from './Line';
 import { isString, isValue, isNumber } from './helpers/variableType';
 import { stringifyNode, getNodeId } from './helpers/node';
-import { offsetVector } from './helpers/tools';
+import { offsetVector, pack } from './helpers/tools';
 import TextInlines from './TextInlines';
 import StyleContextStack from './StyleContextStack';
 
@@ -36,7 +36,7 @@ class LayoutBuilder {
 	}
 
 	registerTableLayouts(tableLayouts) {
-		this.tableLayouts = { ...this.tableLayouts, ...tableLayouts };// pack(this.tableLayouts, tableLayouts);
+		this.tableLayouts = pack(this.tableLayouts, tableLayouts); // { ...this.tableLayouts, ...tableLayouts }
 	}
 
 	/**
@@ -1089,7 +1089,7 @@ class LayoutBuilder {
 	processAcroForm (node) {
 		let availableWidth = this.writer.context().availableWidth;
 		let position = this.writer.addAcroForm(node);
-		node.positions.push(position);	
+		node.positions.push(position);
 		node.availableWidth = availableWidth;
 	}
 
