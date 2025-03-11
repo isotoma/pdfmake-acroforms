@@ -75,7 +75,7 @@ class Renderer {
 					case 'svg':
 						this.renderSVG(item.item);
 						break;
-					case 'acroform': 
+					case 'acroform':
 						this.renderAcroForm(item.item);
 						break;
 					case 'attachment':
@@ -294,36 +294,31 @@ class Renderer {
 	}
 
 	renderAcroForm(node) {
-		const { font, bold, italics } = node;
-		let { type, options } = node.acroform;
-
-		if (options == null) {
-			options = {};
-		}
-
-		if (this.hasFormInit == false)  { 
-			this.pdfDocument.initForm();
-			this.hasFormInit = true;
-		}
-
-		const setFont = () => {
-			if (typeof font === "string") {
-				this.pdfDocument._font = this.pdfDocument.provideFont(font, bold, italics);
-			} else {
-				this.pdfDocument._font = font; 
-			}
-			// if (this.hasFormInit) {
-			// 	this.pdfDocument.addFontToAcroFormDict();
-			// }
-		};
-
-		const id = node.acroform.id;
+		console.log('renderAcroForm >>>', { node });
+		let { id, type, options } = node.acroform;
 
 		if (id == null) {
 			throw new Error(`Acroform field ${id} requires an ID`);
 		}
 
-		let width = node.width || node.availableWidth || (!isNaN(node._calcWidth) && node._calcWidth) || node._minWidth; 
+		if (options == null) {
+			options = {};
+		}
+
+		if (this.hasFormInit == false) {
+			this.pdfDocument.initForm();
+			this.hasFormInit = true;
+		}
+
+		const setFont = () => {
+			if (typeof node.font === "string") {
+				this.pdfDocument._font = this.pdfDocument.provideFont(node.font, node.bold, node.italics);
+			} else {
+				this.pdfDocument._font = node.font;
+			}
+		};
+
+		let width = node.width || node.availableWidth || (!isNaN(node._calcWidth) && node._calcWidth) || node._minWidth;
 		if (node.width == '*') {
 			width = node.availableWidth;
 		}
@@ -352,7 +347,7 @@ class Renderer {
 			case "formCombo":
 				resolvedType = "formCombo";
 				break;
-			case "checkbox": 
+			case "checkbox":
 			case "formCheckbox":
 				resolvedType = "formCheckbox";
 				break;
@@ -364,6 +359,10 @@ class Renderer {
 			default:
 				throw new Error(`Unrecognized acroform type: ${type}`);
 		}
+
+		// if (options.borderColor) {
+		// 	this.pdfDocument.borderColor(options.borderColor);
+		// }
 
 		this.pdfDocument[resolvedType](id, node.x, node.y, width, node.height, options);
 	}
