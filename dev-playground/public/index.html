@@ -66,10 +66,9 @@
 					name: names[i++],
 					activate: function () {
 						$http.get('samples/' + example).success(function (data) {
-							console.log({ data })
 							editor.getSession().setValue('// playground requires you to assign document definition to a variable called dd\n\nvar dd = {\n' + data.replace(/(\r?)\n/g, '\n').replace(/(^)/gm, '\t') + '\n}');
 						}).catch(function (error) {
-							console.log('ERROR', error);
+							console.error(error);
 						});
 					}
 				});
@@ -113,7 +112,6 @@
 
 					$http.post('/pdf', { content: content }).
 						success(function (data, status, headers, config) {
-
 							document.getElementById('pdfV').src = data;
 						}).
 						error(function (data, status, headers, config) {

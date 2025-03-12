@@ -36,7 +36,7 @@ class LayoutBuilder {
 	}
 
 	registerTableLayouts(tableLayouts) {
-		this.tableLayouts = pack(this.tableLayouts, tableLayouts); // { ...this.tableLayouts, ...tableLayouts }
+		this.tableLayouts = pack(this.tableLayouts, tableLayouts);
 	}
 
 	/**
@@ -1086,7 +1086,7 @@ class LayoutBuilder {
 		node.positions.push(position);
 	}
 
-	processAcroForm (node) {
+	processAcroForm(node) {
 		let availableWidth = this.writer.context().availableWidth;
 		let position = this.writer.addAcroForm(node);
 		node.positions.push(position);

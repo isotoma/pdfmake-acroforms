@@ -51,7 +51,8 @@ content: [
 						"id": "text_date",
 						"options": {
 							"format": {
-								"type": "date"
+								"type": "date",
+								"param": "dd/mm/yyyy"
 							},
 							"align": "center",
 							"value": "10/12/2025"
@@ -127,6 +128,7 @@ content: [
 						"id": "text_backgroundcolor",
 						"options": {
 							"backgroundColor": "#DCE6FF",
+							"borderColor": "#DCE6FF",
 							"align": "center",
 							"value": "background color"
 						}
