@@ -294,7 +294,7 @@ class Renderer {
 	}
 
 	renderAcroForm(node) {
-		console.log('renderAcroForm >>>', { node });
+		console.log('renderAcroForm >>>', JSON.stringify({ node }));
 		let { id, type, options } = node.acroform;
 
 		if (id == null) {

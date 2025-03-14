@@ -90,6 +90,7 @@ class TextBreaker {
 	 * @returns {Array}
 	 */
 	getBreaks(texts, styleContextStack) {
+		console.log('getBreaks', { texts });
 		let results = [];
 
 		if (!Array.isArray(texts)) {
@@ -126,23 +127,25 @@ class TextBreaker {
 				}
 			}
 
-			for (let i2 = 0, l2 = words.length; i2 < l2; i2++) {
-				let result = {};
-				if (words[0].acroform) {
-					result = words[0];
-				} else {
-					result = {
-						text: words[i2].text
-					};
+			if (words) {
+				for (let i2 = 0, l2 = words.length; i2 < l2; i2++) {
+					let result = {};
+					if (words[0].acroform) {
+						result = words[0];
+					} else {
+						result = {
+							text: words[i2].text
+						};
+					}
+
+					if (words[i2].lineEnd) {
+						result.lineEnd = true;
+					}
+
+					StyleContextStack.copyStyle(style, result);
+
+					results.push(result);
 				}
-
-				if (words[i2].lineEnd) {
-					result.lineEnd = true;
-				}
-
-				StyleContextStack.copyStyle(style, result);
-
-				results.push(result);
 			}
 
 			lastWord = null;
